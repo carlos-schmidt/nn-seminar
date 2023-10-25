@@ -1,6 +1,5 @@
 # Plan for Presentation and Paper: Multi-modal Speech Representation Learning
 
-0. How to use VSCode + Tex?
 1. Read and understand papers.
 2. Write down questions regarding papers and also highlight important stuff etc.
 3. Ask said questions, also ask what exactly the paper and presentation should contain / not contain.
@@ -18,6 +17,10 @@
 ## What needs to be in the presentation
 
 1. Motivation: Current state (is single mode current sota?), then show that multi modal data is easy to get (if it's true)
-2. Gathering multi-modal data
+2. History of (Speech) Representation Learning?
+3. Requirements of Speech Representations
+4. SPEECH REPRESENTATION LEARNING PARADIGMS
+5. Gathering multi-modal data
+6. Evaluation methods
 3. Present approaches by papers
 4. Present their results? Possibly better scores / more use cases
