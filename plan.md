@@ -30,6 +30,7 @@ Questions:
 
 ## What needs to be in the presentation
 
+
 0. What is Speech Representation Learning, why do we need it? (Review Section VI), What is Self-Supervised Learning
 1. Motivation: Current state (is single mode current sota?), then show that multi modal datas is easy to get (if it's true)
 2. History of (Speech) Representation Learning?
@@ -41,3 +42,6 @@ Questions:
 7. Present approaches by papers
 8. Advantages / Drawbacks of Multi-modal learning (e.g., domain-specific data)
 4. Present their results? Possibly better scores / more use cases
+
+last: Challenges and Prospects
+
