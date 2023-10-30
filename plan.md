@@ -14,6 +14,7 @@ Questions:
 - How deep into datasets for speech learning do I need to go into?
 
 [2] Ao, Junyi, et al. "Speecht5: Unified-modal encoder-decoder pre-training for spoken language processing." ACL (2022).
+- SpeechT5
 - Speech/Text to Speech/Text
 - text and speech input into same vector space
 - Advantage: You can pre-train it on large amounts of unlabeled text/speech data
@@ -27,21 +28,27 @@ Questions:
 Questions:
 
 [4] Shi, Bowen, et al. "Learning audio-visual speech representation by masked multimodal cluster prediction." ICLR (2022).
+- Quickly explain HuBERT 2106.07447, wav2vec
+- AV HuBERT
+
+Read from Experiment
 
 ## What needs to be in the presentation
 
 
 0. What is Speech Representation Learning, why do we need it? (Review Section VI), What is Self-Supervised Learning
-1. Motivation: Current state (is single mode current sota?), then show that multi modal datas is easy to get (if it's true)
-2. History of (Speech) Representation Learning?
-3. Requirements of Speech Representations
-4. SPEECH REPRESENTATION LEARNING PARADIGMS
-5. Multi-modal approaches, challenges thereof
-5. Gathering multi-modal data
-6. Evaluation methods
-7. Present approaches by papers
-8. Advantages / Drawbacks of Multi-modal learning (e.g., domain-specific data)
-4. Present their results? Possibly better scores / more use cases
-
-last: Challenges and Prospects
+1. History of (Speech) Representation Learning?
+2. Motivation: Current state (is single mode current sota?), then show that multi modal datas is easy to get (if it's true)
+3. Pre-Training and Fine-Tuning tasks 
+4. Requirements of Speech Representations
+5. SPEECH REPRESENTATION LEARNING PARADIGMS
+6. Multi-modal approaches, challenges thereof
+7. Gathering multi-modal data
+8. Evaluation methods
+9. AV HuBERT
+10. SpeechT5
+11. VAT LM
+12. Advantages / Drawbacks of Multi-modal learning (e.g., domain-specific data)
+13. Present their results? Possibly better scores / more use cases. What's the current SOTA in VSR/AVSR/ASR?
+14. Challenges and Prospects
 
