@@ -13,6 +13,7 @@
 \usepackage{microtype}
 \usepackage{inconsolata}
 
+\newcommand{\enquote}[1]{``#1''}
 
 % If the title and author information does not fit in the area allocated, uncomment the following
 %
@@ -34,17 +35,24 @@ These instructions should be used both for papers submitted for review and for f
 
 \section{Introduction}
 
-Motivate speech representation learning in combination with self-supervised learning (unlabeled data exploitation), then show structure of document. This paper partly references a review on Self-Supervised Speech Representation Learning\cite{srl-review}
+What are speech representations? why would one want to learn them? connections to text and their successes (BERT, ChatGPT)
 
-\section{History of Speech Representation Learning}
+Motivate speech representation learning then show structure of document. This paper partly references a review on Self-Supervised Speech Representation Learning\cite{srl-review}
+
+\subsection{History of Speech Representation Learning}
 
 Show first approaches (?) 
 
-\section{Self-Supervised Learning for Speech Representation Models}
+\subsection{Self-Supervised Learning for Speech Representation Models}
 
-Show paradigms with examples and stuff
+\input{chapters/self-supervised-learning}
+
 
 \section{Single-mode Speech Representation Models}
+
+\subsection{wav2vec2.0}
+
+\subsection{HuBERT}
 
 \section{Multi-modal Speech Representation Models}
 
