@@ -1,0 +1,5 @@
+speech_wave.jpg: https://upload.wikimedia.org/wikipedia/commons/a/a6/Signal-speech-martin-de.png; MartinThoma, CC0, via Wikimedia Commons [accessed 7 Nov, 2023]
+lip_reading.jpg: Learning to Lip Read Words by Watching Videos - Scientific Figure on ResearchGate. Available from: https://www.researchgate.net/figure/One-second-clips-that-contain-the-word-about-Top-male-speaker-bottom-female-speaker_fig5_322987117 [accessed 7 Nov, 2023]
+The-Triplet-loss-in-cosine-similarity.png: https://www.researchgate.net/figure/The-Triplet-loss-in-cosine-similarity_fig3_316736728 [accessed 8 Nov, 2023]
+generative-approach-mlm.png: https://storrs.io/bert/ [accessed 8 Nov, 2023]
+speecht5_framework.png: https://github.com/microsoft/SpeechT5/blob/main/SpeechT5/speecht5_framework.png [accessed 8 Nov, 2023]

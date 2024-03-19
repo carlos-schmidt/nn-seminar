@@ -1,0 +1,29 @@
+The Visual-Audio-Text Language Model (VAT-LM), is an approach of speech representation learning that merges three modalities to learn representations. The model was first introduced by Microsoft in 2022~\cite{vatlm}. It has structural similarities to AV-HuBERT (see Section~\ref{sec:av-hubert}), where the common idea is that the different modalities' representations should not share a latent space (as we have seen in \ref{sec:speecht5}), rather the fusion of them should be mapped onto a combined representation.
+\subsubsection{Model Architecture}
+As previously stated, VAT-LM has a similar architecture to AV-HuBERT, also comprising of a fusion module followed by a Transformer Encoder. The difference is here in the third input channel, the textual modality. Like AV-HuBERT, VAT-LM uses a ResNet-18 for the visual modality and the log-filterbank features for the audio data. The two channels are combined such that four video frames are matched with one audio frame, since the modalities have different sampling rates. Lastly, the textual data is encoded using an embedding layer, where again, the input text is first converted into phonemes to tackle the problem of different sampling rates / frame sizes of the modalities. The fusion module, like for AV-HuBERT, is a simple concatenation operation with the channel's encoded inputs.
+\subsubsection{Training}
+Since data coming from three modalities can be of several forms such as audio-video, audio-text, audio-only or text-only data. For each of these combinations the authors proposed to create the pre-training targets differently:\\
+\textbf{Audio-video data:} For this combination, a pre-trained AV-HuBERT is used to create hidden units which are then clustered with the k-means algorithm to get the learning targets.\\
+\textbf{Audio-text and audio-only data:} Here, the authors also used AV-HuBERT while omitting the text data for the audio-text input while computing the targets. The visual input needed for AV-HuBERT is set to zero.\\
+\textbf{Text-only data:} Finally, for text-only data, the authors propose to use transcribed ASR data to train text encodings. Specifically, the transcription of the ASR data is converted to phonemes and then transformed with a phoneme2unit model, while the audio data is converted to hidden units with AV-HuBERT as targets for training the text encoder.\\
+After generating the pre-training targets, the authors proposed the ``unified masked prediction'' pre-training task \cite{vatlm}. Here, similarly to HuBERT, the input features coming from the fusion module are masked. After computing the contextual representations with the Transformer Encoder, the targets specific to the modality of the masked input segments are used for a prediction task.
+\subsubsection{Performance}
+VAT-LM is compared to different approaches mainly by the audio-visual speech recognition and visual speech recognition performance. Results of this comparison with the previous state of the art, AV-HuBERT), are shown in \ref{table:vatlm_performance}. It can be observed that VAT-LM achieves a lower WER than AV-HuBERT with a similar amount of parameters (approximately $2.1\%$ higher for the VAT-LM large model)~\cite{vatlm}. It must be noted though, that VAT-LM was able to leverage an additional 600M text data to the audio-visual data, which AV-HuBERT used, for pre-training.
+
+\begin{table}[h]
+    %\resizebox{.5\textwidth}{!}{% use resizebox with textwidth
+        \centering
+        \begin{tabular}{l c c c}
+        \hline
+        \textbf{Model} & Type & AVSR & VSR\\
+        AV-HuBERT&Transformer&1.4&28.6\\
+        VAT-LM &Transformer&\textbf{1.2}&\textbf{28.4}\\
+        \hline
+        + Self-training:&&&\\
+        AV-HuBERT&Transformer&-&26.9\\
+        VAT-LM&Transformer&\textbf{1.2}&\textbf{26.2}\\
+        \hline
+        \end{tabular}
+    %}
+    \caption{\label{table:vatlm_performance}AVSR and VSR Performance (WER in \%) of VAT-LM in comparison to AV-HuBERT (excerpt from \cite{vatlm}). To see more results concerning the VSR task, see \ref{table:avhubert_ablation}. For self-training explanation, see ~\ref{sec:av-hubert-training}.}
+\end{table}
