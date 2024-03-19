@@ -2,6 +2,13 @@
 \pdfoutput=1
 % In particular, the hyperref package requires pdfLaTeX in order to break URLs across lines.
 
+% TODO checklist
+% • 5 pages, two-columned
+% • not less; images should be used economically;
+% references do not count;
+% downgrading if more than 5.5 pages;
+% appendix allowed but everything important should be in the main part
+
 \documentclass[11pt]{article}
 % Remove the "review" option to generate the final version.
 \usepackage[review]{ACL2023}
@@ -12,6 +19,12 @@
 \usepackage[utf8]{inputenc}
 \usepackage{microtype}
 \usepackage{inconsolata}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{placeins}
+\usepackage[bb=dsserif]{mathalpha}
 
 \newcommand{\enquote}[1]{``#1''}
 
@@ -21,97 +34,41 @@
 %
 % and set <dim> to something 5cm or larger.
 
-\title{A Review on Multi-modal Speech Representation Learning}
-
+\title{Neural Network Seminar\\Multi-modal Speech Representation Learning}
+    
 \author{Carlos Schmidt \\\texttt{uuwss@student.kit.edu}\\}
 
 \begin{document}
 \maketitle
 \begin{abstract}
-This document is a supplement to the general instructions for *ACL authors. It contains instructions for using the \LaTeX{} style file for ACL 2023.
-The document itself conforms to its own specifications, and is, therefore, an example of what your manuscript should look like.
-These instructions should be used both for papers submitted for review and for final versions of accepted papers.
+While speech representation learning is a well-known approach to train versatile models capable of solving different natural language processing (NLP) tasks like automatic or visual speech recognition (ASR/VSR), a relatively new path towards leveraging multiple modalities shows promising downstream performance gains. Furthermore, multi-modal data like video with sound is everywhere and because of their intuitiveness easy to produce, e.g., by recording a video of a person speaking. The reviewed models in this paper exploit different combinations of three types of modalities: audio, video and textual data. The performance gain of these models with respect to previous single-mode approaches is shown as well as differences between the models themselves. Overall, multi-modal approaches to speech representation learning demonstrate enormous potential and have already set new benchmarks for numerous NLP tasks.
 \end{abstract}
 
 \section{Introduction}
 \input{chapters/intro}
-
-\subsection{History of Speech Representation Learning}
-
-Show first approaches (?) 
-
-\subsection{Self-Supervised Learning for Speech Representation Models}
-
-\input{chapters/self-supervised-learning}
-
-
-\section{Single-mode Speech Representation Models}
-
+%\subsection{History of Speech Representation Learning}Probably remove, only keep if too few pages... Show first approaches (?) 
+%\subsection{Self-Supervised Learning for Speech Representation Models}\input{chapters/self-supervised-learning}
+\section{Single-mode Speech Representation Models}\label{sec:single-mode}
+In this section, we briefly discuss two different approaches for single-mode speech representation models. Both approaches use audio data to learn representations, and can outperform previous supervised models in tasks such as automatic speech recognition using the same amount of training data \cite{wav2vec20}. A more comprehensive list of single-mode approaches to speech representations can be found in \cite{srl-review}.
 \subsection{wav2vec2.0}
-
-\subsection{HuBERT}
+\input{chapters/single-mode/wav2vec}
+\subsection{HuBERT}\label{sec:HuBERT}
+\input{chapters/single-mode/hubert}
 
 \section{Multi-modal Speech Representation Models}
-
-This section presents three examples of speech representation learning models each leveraging a different set of input channels. First, we will look at SpeechT5~\cite{speecht5} which is using the additional text modality for learning speech representations. Next, we will see AV-HuBERT~\cite{AV_HuBERT}, which is an extension of the single-mode model HuBERT~\cite{} and benefits from the audio modality as well as the video modality. Lastly, VAT-LM~\cite{} will be covered, leveraging all three mentioned modalities: audio, video and text.
-
-\subsection{SpeechT5}
-
-The SpeechT5 framework, first introduced in 2021 by Microsoft~\cite{speecht5}, is an expansion of the text-only T5 framework (Text-to-Text Transfer Transformer,~\citeposs{t5}). SpeechT5 is\dots
-
-\subsubsection{Model Architecture}
-\subsubsection{Learning (?)}
-\subsubsection{Performance Discussion}
-
-Here, we show that SpeechT5 outperforms single-mode SRL models, and also the benefit of using multiple modalities by presenting the ablation studies of the original paper.~See Table~\ref{table:speecht5_performance}. Also, here is a section of the appendix containing more information:~\ref{sec:appendix}.
-
-\begin{table}
-    \centering
-    \begin{tabular}{lc}
-    \hline
-    \textbf{Model} & \textbf{WER~(\%)}\\
-    \hline
-    wav2vec2.0 & 1.8\\
-    SpeechT5 & 1.5\\
-    \hline
-    \end{tabular}
-    \caption{\label{table:speecht5_performance}ASR Performance.}
-\end{table}
-
-\subsection{AV-HuBERT}
-
-AV-HuBERT Stuffs
-
-\subsubsection{Model Architecture}
-\subsubsection{Learning (?)}
-\subsubsection{Performance Discussion}
-
+This section presents three examples of speech representation learning models, each leveraging a different combination of input channels. First, we will look at SpeechT5 \cite{speecht5}, which uses additionally to the audio modality the text modality for learning speech representations. Next, we will take a look at AV-HuBERT \cite{AV_HuBERT}, which is an extension of the single-mode model HuBERT \cite{hubert} and benefits from the audio modality as well as the video modality. Lastly, VAT-LM \cite{vatlm} will be covered, leveraging all three mentioned modalities: audio, video and text.
+\subsection{SpeechT5}\label{sec:speecht5}
+\input{chapters/multi-mode/speecht5}
+\subsection{AV-HuBERT}\label{sec:av-hubert}
+\input{chapters/multi-mode/av-hubert}
 \subsection{VAT-LM}
-
-VAT-LM Stuffs
-
-\subsubsection{Model Architecture}
-\subsubsection{Learning (?)}
-\subsubsection{Performance Discussion}
-
-
+\input{chapters/multi-mode/vat-lm}
 \section{Discussion}
-Discussion on how well multi-modal models improve the field of SRL.\@
+\input{chapters/discussion}
 
-\section*{Ethics Statement}
-Scientific work published at ACL 2023 must comply with the ACL Ethics Policy.\footnote{\url{https://www.aclweb.org/portal/content/acl-code-ethics}} We encourage all authors to include an explicit ethics statement on the broader impact of the work, or other ethical considerations after the conclusion but before the references. The ethics statement will not count toward the page limit (8 pages for long, 4 pages for short papers).
-
-\section*{Acknowledgements}
-Maybe acknowledge the review~\cite{srl-review} or smth.
 
 % Entries for the entire Anthology, followed by custom entries
 \bibliography{anthology,custom}
 \bibliographystyle{acl_natbib}
-
-\appendix
-
-\section{Example Appendix}\label{sec:appendix}
-
-This is a section in the appendix.
 
 \end{document}

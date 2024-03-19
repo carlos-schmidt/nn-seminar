@@ -1,0 +1,52 @@
+Audio-Visual Hidden Unit BERT (AV-HuBERT) by Meta AI~\cite{AV_HuBERT} was first introduced in 2022 and combines audio as well as video input to learn speech representations. As the name suggests, AV-HuBERT is based on the concepts of HuBERT (cf. Section~\ref{sec:HuBERT}), also using clustering for target generation and predicting these targets from masked inputs.
+\subsubsection{Model Architecture}
+Additionally to the base architecture of the HuBERT model, the authors chose a ResNet-18 CNN as a visual encoder and a linear projection layer for the audio input. To combine the inputs of both the audio and video channels, an ``audio-visual fusion'' module was added. This module simply concatenates the encoded inputs. After the fusion module, a Transformer network creates contextualized representations of the sequential input.
+\subsubsection{Training}\label{sec:av-hubert-training}
+The training procedure of AV-HuBERT is similar to HuBERT's training procedure (cf. Section~\ref{sec:HuBERT}, \cite{hubert}), combining generative and predictive learning by using masked prediction and learned targets. There were however some tweaks introduced for training AV-HuBERT, which are explained below.\\
+\textbf{Clustering:} The authors tested different inputs for the clustering to produce learning targets: Audio only, video only and a combination of both. The result was that producing targets with the combination of both channels yields the best performance. Like in the HuBERT approach, the first targets are generated with the k-means algorithm on the Mel Frequency Cepstral Coefficients (MFCC) features.\\
+\textbf{Modality dropout:} Since there are two input channels, a different strategy for the dropout regularization technique was chosen. With probability $p_m$, neither channel is masked. With probability $(1-p_m)p_a$, only the video channel is masked and with probability $(1-p_m)(1-p_a)$, both channels are masked. We will later see that this technique helps AV-HuBERT in achieving higher scores in visual-only tasks.\\
+\textbf{Masking strategy:} Additionally to the modality dropout, the inputs of both channels are randomly masked before the channel-specific encoders. Instead of masking the visual inputs with white noise or zeroing the frame segments however, the authors proposed to replace them with other segments from the same input stream. The impact of this method is also shown later in the performance section.
+\subsubsection{Performance}
+The primary results for AV-HuBERT is the performance for Visual speech recognition (VSR), or ``lip-reading'' and can be seen in \ref{table:avhubert_performance}. In this task, AV-HuBERT achieved a big improvement to the state-of-the-art (SOTA) approach by \cite{makino-etal-2021-neural}. Furthermore, the previous SOTA model was trained in a purely supervised fashion with 31,000 hours of labeled data from the ``Lip Reading Sentences 3'' dataset~\cite{afouras2018lrs3ted}, while AV-HuBERT only used 433 hours of labeled data and an additional 1,759 hours of unlabeled data. Also, AV-HuBERT combined with self-training achieved the new SOTA. For the self-training, they used a fine-tuned HuBERT model to generate pseudo-labels for unlabeled videos for AV-HuBERT. These pseudo-labeled videos were used in combination with the labeled data to fine-tune AV-HuBERT.
+
+\begin{table}[htbp]
+    \resizebox{.5\textwidth}{!}{% use resizebox with textwidth
+        \centering
+        \begin{tabular}{l c c c}
+        \hline
+        \textbf{Model} & Type & Un-/labeled (hrs)& WER(\%)\\
+        \hline
+        \citealt{ma2021endtoend}&Conformer&-/433+157&43.3\\
+        \citealt{makino2019recurrent}&RNN&-/31,000&33.6\\
+        AV-HuBERT&Transformer&1,759/433&28.6\\
+        AV-HuBERT + ST&Transformer&1,759/433&\textbf{26.9}\\
+        \hline
+        \end{tabular}
+    }
+    \caption{\label{table:avhubert_performance}Visual speech recognition (VSR, ``Lip-Reading'') Performance (Excerpt from \cite{AV_HuBERT}). Conformer: Convolution-augmented Transformer, ST: self-training.}
+\end{table}
+
+In ASR, baseline AV-HuBERT cannot achieve better results than HuBERT. However, using the audio-visual clustering targets when pre-training audio-HuBERT (AV-HuBERT with $p_m=0,p_a=1$) results in a slightly better ASR performance with a $1.3\%$ WER from a $1.5\%$ WER for the normal HuBERT model.~\cite{AV_HuBERT}
+% Also show their results when they removed audio? "Visual HuBERT". also show modality dropout impact and maybe masking strategy impact
+Finally, the impact of the pre-training techniques on the VSR task is shown in \ref{table:avhubert_ablation}. For the masking strategy, the authors showed that several other masking techniques also performed worse than their suggested technique.
+
+\begin{table}[htbp]
+    \centering
+    \resizebox{.5\textwidth}{!}{% use resizebox with textwidth
+        \begin{tabular}{lc c}
+        \hline
+        Technique & WER (\%) & $\Delta$WER (\%)\\
+        \hline
+        Modality dropout & used & not used\\
+        & 46.8/55.3 & +8.4/+1.7 \\
+        \hline
+        Masking strategy & proposed & Gaussian noise\\
+        & 46.8/55.3 & +5.6/+2.6 \\
+        \hline
+        Masking probability & $a:0.8,v:0.3$ & $a:0.8,v:0.8$\\
+         & 46.8/55.3 & +12.5/+6.3\\
+        \hline
+        \end{tabular}
+    }
+    \caption{\label{table:avhubert_ablation}Ablation results for the different pre-training techniques. The different columns show the validation and test set WER difference of a pre-trained AV-HuBERT for the VSR task when using or omitting the technique.~\cite{AV_HuBERT}}
+\end{table}
