@@ -8,7 +8,7 @@ Since data coming from three modalities can be of several forms such as audio-vi
 \textbf{Text-only data:} Finally, for text-only data, the authors propose to use transcribed ASR data to train text encodings. Specifically, the transcription of the ASR data is converted to phonemes and then transformed with a phoneme2unit model, while the audio data is converted to hidden units with AV-HuBERT as targets for training the text encoder.\\
 After generating the pre-training targets, the authors proposed the ``unified masked prediction'' pre-training task \cite{vatlm}. Here, similarly to HuBERT, the input features coming from the fusion module are masked. After computing the contextual representations with the Transformer Encoder, the targets specific to the modality of the masked input segments are used for a prediction task.
 \subsubsection{Performance}
-VAT-LM is compared to different approaches mainly by the audio-visual speech recognition and visual speech recognition performance. Results of this comparison with the previous state of the art, AV-HuBERT), are shown in \ref{table:vatlm_performance}. It can be observed that VAT-LM achieves a lower WER than AV-HuBERT with a similar amount of parameters (approximately $2.1\%$ higher for the VAT-LM large model)~\cite{vatlm}. It must be noted though, that VAT-LM was able to leverage an additional 600M text data to the audio-visual data, which AV-HuBERT used, for pre-training.
+VAT-LM is compared to different approaches mainly by its audio-visual speech recognition and visual speech recognition performance. Results of this comparison with the previous state of the art, AV-HuBERT), are shown in \ref{table:vatlm_performance}. It can be observed that VAT-LM achieves a lower WER than AV-HuBERT with a similar amount of parameters (approximately $2.1\%$ higher for the VAT-LM large model)~\cite{vatlm}. It must be noted though, that VAT-LM was able to leverage an additional 600M text data to the audio-visual data, which AV-HuBERT used, for pre-training.
 
 \begin{table}[h]
     %\resizebox{.5\textwidth}{!}{% use resizebox with textwidth
@@ -25,5 +25,5 @@ VAT-LM is compared to different approaches mainly by the audio-visual speech rec
         \hline
         \end{tabular}
     %}
-    \caption{\label{table:vatlm_performance}AVSR and VSR Performance (WER in \%) of VAT-LM in comparison to AV-HuBERT (excerpt from \cite{vatlm}). To see more results concerning the VSR task, see \ref{table:avhubert_ablation}. For self-training explanation, see ~\ref{sec:av-hubert-training}.}
+    \caption{\label{table:vatlm_performance}AVSR and VSR Performance (WER in \%) of VAT-LM in comparison to AV-HuBERT (excerpt from \cite{vatlm}). For more VSR results, see \ref{table:avhubert_ablation}. For self-training explanation, see ~\ref{sec:av-hubert-training}.}
 \end{table}
