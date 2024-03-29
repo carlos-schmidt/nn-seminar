@@ -2,13 +2,6 @@
 \pdfoutput=1
 % In particular, the hyperref package requires pdfLaTeX in order to break URLs across lines.
 
-% TODO checklist
-% • 5 pages, two-columned
-% • not less; images should be used economically;
-% references do not count;
-% downgrading if more than 5.5 pages;
-% appendix allowed but everything important should be in the main part
-
 \documentclass[11pt]{article}
 % Remove the "review" option to generate the final version.
 %\usepackage[review]{ACL2023}
@@ -48,7 +41,7 @@ While speech representation learning is a well-known approach to train versatile
 \section{Introduction}
 \input{chapters/intro}
 \section{Single-mode Speech Representation Models}\label{sec:single-mode}
-In this section, we briefly discuss two different approaches for single-mode speech representation models. Both approaches use audio data to learn representations, and can outperform previous supervised models in tasks such as automatic speech recognition using the same amount of training data \cite{wav2vec20}. A more comprehensive list of single-mode approaches to speech representations can be found in \cite{srl-review}.
+In this section, we briefly discuss two different approaches for single-mode speech representation models. Both approaches use audio data to learn representations and can outperform previous supervised models in tasks such as automatic speech recognition using the same amount of training data \cite{wav2vec20}. A more comprehensive list of single-mode approaches to speech representations can be found in \citealt{srl-review}.
 \subsection{wav2vec2.0}
 \input{chapters/single-mode/wav2vec}
 \subsection{HuBERT}\label{sec:HuBERT}
